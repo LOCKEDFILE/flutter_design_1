@@ -23,14 +23,14 @@ class Design extends StatefulWidget {
 }
 
 class _DesignState extends State<Design> {
-  GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
-  PageController pageController =
-      PageController(initialPage: 0, viewportFraction: 0.8);
+  GlobalKey<ScaffoldState> _globalKey;
+  PageController pageController;
   int page = 0;
   List item = [for (var i = 0; i < 10; i++) i];
   @override
   void initState() {
-    pageController = PageController(initialPage: 0, viewportFraction: 0.8);
+    _globalKey = GlobalKey<ScaffoldState>();
+    pageController = PageController(initialPage: 0, viewportFraction: 0.95);
 
     super.initState();
   }
@@ -181,122 +181,129 @@ class _DesignState extends State<Design> {
   Widget pageItem({int index}) {
     String title = 'Page Item index::$index';
     String desc = 'Description';
-    return Container(
-      margin: EdgeInsets.all(12),
-      child: GestureDetector(
-        onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (_) => Depth(
-                    index: index,
-                    title: title,
-                    desc: desc,
-                  )));
-        },
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(50),
-            boxShadow: [
-              BoxShadow(
-                blurRadius: 8,
-                spreadRadius: 3,
-                color: Colors.grey[300],
-              )
-            ],
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Column(
+    return Stack(
+      children: <Widget>[
+        Container(
+          margin: EdgeInsets.all(20),
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (_) => Depth(
+                        index: index,
+                        title: title,
+                        desc: desc,
+                      )));
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(50),
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 8,
+                    spreadRadius: 3,
+                    color: Colors.grey[300],
+                  )
+                ],
+              ),
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Hero(
-                    tag: 'img$index',
-                    transitionOnUserGestures: true,
-                    child: Container(
-                      height: MediaQuery.of(context).size.height * 0.24,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        image: DecorationImage(
-                            image:
-                                NetworkImage('https://picsum.photos/20$index'),
-                            fit: BoxFit.cover),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.24,
                       ),
-                    ),
+                      Container(
+                        padding: EdgeInsets.all(20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Hero(
+                              tag: 'des$index',
+                              transitionOnUserGestures: true,
+                              child: Material(
+                                color: Colors.transparent,
+                                child: Text(
+                                  '$desc',
+                                  style: TextStyle(
+                                      color: Colors.grey, fontSize: 16),
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 6),
+                            Hero(
+                              tag: 'title$index',
+                              transitionOnUserGestures: true,
+                              child: Material(
+                                color: Colors.transparent,
+                                child: Text(
+                                  '$title',
+                                  style: TextStyle(
+                                      color: Colors.blueGrey,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                   Container(
-                    padding: EdgeInsets.all(20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Hero(
-                          tag: 'des$index',
-                          transitionOnUserGestures: true,
-                          child: Material(
-                            color: Colors.transparent,
-                            child: Text(
-                              '$desc',
-                              style:
-                                  TextStyle(color: Colors.grey, fontSize: 16),
-                            ),
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 20),
+                    child: ListTile(
+                      title: Text(
+                        '\$ ${437 + index * 7}',
+                        style: TextStyle(
+                            color: Colors.blueGrey[700],
+                            fontWeight: FontWeight.w800,
+                            fontSize: 20),
+                      ),
+                      trailing: Wrap(
+                        alignment: WrapAlignment.center,
+                        children: <Widget>[
+                          CircleAvatar(
+                            radius: 3,
+                            backgroundColor: Colors.grey[300],
                           ),
-                        ),
-                        SizedBox(height: 6),
-                        Hero(
-                          tag: 'title$index',
-                          transitionOnUserGestures: true,
-                          child: Material(
-                            color: Colors.transparent,
-                            child: Text(
-                              '$title',
-                              style: TextStyle(
-                                  color: Colors.blueGrey,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20),
-                            ),
+                          SizedBox(width: 6),
+                          CircleAvatar(
+                            radius: 3,
+                            backgroundColor: Colors.grey[300],
                           ),
-                        ),
-                      ],
+                          SizedBox(width: 6),
+                          CircleAvatar(
+                            radius: 3,
+                            backgroundColor: Colors.grey[300],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
               ),
-              Container(
-                padding: EdgeInsets.fromLTRB(10, 0, 10, 20),
-                child: ListTile(
-                  title: Text(
-                    '\$ ${437 + index * 7}',
-                    style: TextStyle(
-                        color: Colors.blueGrey[700],
-                        fontWeight: FontWeight.w800,
-                        fontSize: 20),
-                  ),
-                  trailing: Wrap(
-                    alignment: WrapAlignment.center,
-                    children: <Widget>[
-                      CircleAvatar(
-                        radius: 3,
-                        backgroundColor: Colors.grey[300],
-                      ),
-                      SizedBox(width: 6),
-                      CircleAvatar(
-                        radius: 3,
-                        backgroundColor: Colors.grey[300],
-                      ),
-                      SizedBox(width: 6),
-                      CircleAvatar(
-                        radius: 3,
-                        backgroundColor: Colors.grey[300],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
         ),
-      ),
+        Hero(
+          tag: 'img$index',
+          transitionOnUserGestures: true,
+          child: Container(
+            margin: EdgeInsets.all(20),
+            height: MediaQuery.of(context).size.height * 0.24,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(50),
+              image: DecorationImage(
+                  image: NetworkImage('https://picsum.photos/20$index'),
+                  fit: BoxFit.cover),
+            ),
+          ),
+        ),
+      ],
     );
   }
 
