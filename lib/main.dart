@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:design_1/depth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -204,52 +206,91 @@ class _DesignState extends State<Design> {
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Hero(
-                tag: 'img$index',
-                transitionOnUserGestures: true,
-                child: Container(
-                  height: MediaQuery.of(context).size.height * 0.24,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    image: DecorationImage(
-                        image: NetworkImage('https://picsum.photos/20$index'),
-                        fit: BoxFit.cover),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Hero(
+                    tag: 'img$index',
+                    transitionOnUserGestures: true,
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * 0.24,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        image: DecorationImage(
+                            image:
+                                NetworkImage('https://picsum.photos/20$index'),
+                            fit: BoxFit.cover),
+                      ),
+                    ),
                   ),
-                ),
+                  Container(
+                    padding: EdgeInsets.all(20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Hero(
+                          tag: 'des$index',
+                          transitionOnUserGestures: true,
+                          child: Material(
+                            color: Colors.transparent,
+                            child: Text(
+                              '$desc',
+                              style:
+                                  TextStyle(color: Colors.grey, fontSize: 16),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 6),
+                        Hero(
+                          tag: 'title$index',
+                          transitionOnUserGestures: true,
+                          child: Material(
+                            color: Colors.transparent,
+                            child: Text(
+                              '$title',
+                              style: TextStyle(
+                                  color: Colors.blueGrey,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
               Container(
-                padding: EdgeInsets.all(20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Hero(
-                      tag: 'des$index',
-                      transitionOnUserGestures: true,
-                      child: Material(
-                        color: Colors.transparent,
-                        child: Text(
-                          '$desc',
-                          style: TextStyle(color: Colors.grey, fontSize: 16),
-                        ),
+                padding: EdgeInsets.fromLTRB(10, 0, 10, 20),
+                child: ListTile(
+                  title: Text(
+                    '\$ ${437 + index * 7}',
+                    style: TextStyle(
+                        color: Colors.blueGrey[700],
+                        fontWeight: FontWeight.w800,
+                        fontSize: 20),
+                  ),
+                  trailing: Wrap(
+                    alignment: WrapAlignment.center,
+                    children: <Widget>[
+                      CircleAvatar(
+                        radius: 3,
+                        backgroundColor: Colors.grey[300],
                       ),
-                    ),
-                    SizedBox(height: 6),
-                    Hero(
-                      tag: 'title$index',
-                      transitionOnUserGestures: true,
-                      child: Material(
-                        color: Colors.transparent,
-                        child: Text(
-                          '$title',
-                          style: TextStyle(
-                              color: Colors.blueGrey,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20),
-                        ),
+                      SizedBox(width: 6),
+                      CircleAvatar(
+                        radius: 3,
+                        backgroundColor: Colors.grey[300],
                       ),
-                    ),
-                  ],
+                      SizedBox(width: 6),
+                      CircleAvatar(
+                        radius: 3,
+                        backgroundColor: Colors.grey[300],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -281,7 +322,8 @@ class _DesignState extends State<Design> {
                   children: <Widget>[
                     Text(
                       '닫기',
-                      style: TextStyle(color: Colors.red),
+                      style: TextStyle(
+                          color: Colors.red, fontWeight: FontWeight.bold),
                     ),
                     Icon(
                       Icons.keyboard_backspace,
