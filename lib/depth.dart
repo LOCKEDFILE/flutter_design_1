@@ -30,29 +30,31 @@ class _DepthState extends State<Depth> {
       body: SafeArea(
         child: Stack(
           children: <Widget>[
-            Container(
-              margin: EdgeInsets.fromLTRB(12, 10, 0, 10),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(50),
-                  bottomLeft: Radius.circular(50),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    blurRadius: 8,
-                    spreadRadius: 3,
-                    color: Colors.grey[300],
-                  )
-                ],
-              ),
-            ),
+            backView(),
             heroContent(),
           ],
         ),
       ),
     );
   }
+
+  Widget backView() => Container(
+        margin: EdgeInsets.fromLTRB(12, 10, 0, 10),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(50),
+            bottomLeft: Radius.circular(50),
+          ),
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 8,
+              spreadRadius: 3,
+              color: Colors.grey[300],
+            )
+          ],
+        ),
+      );
 
   Widget heroContent() {
     return Column(
@@ -103,7 +105,34 @@ class _DepthState extends State<Depth> {
                   ),
                 ),
               ),
+              SizedBox(height: 10),
+              Text(
+                'this is application that is design reference.',
+                style: TextStyle(
+                    color: Colors.blueGrey[200],
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16),
+              ),
             ],
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 12),
+          child: Material(
+            color: Colors.transparent,
+            child: ListTile(
+              onTap: () {},
+              title: Container(
+                padding: EdgeInsets.symmetric(horizontal: 12),
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: CircleAvatar(
+                    child: Icon(Icons.touch_app),
+                  ),
+                ),
+              ),
+              trailing: Icon(Icons.arrow_drop_down),
+            ),
           ),
         ),
       ],
