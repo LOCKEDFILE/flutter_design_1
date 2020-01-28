@@ -181,19 +181,22 @@ class _DesignState extends State<Design> {
   Widget pageItem({int index}) {
     String title = 'Page Item index::$index';
     String desc = 'Description';
-    return Stack(
-      children: <Widget>[
-        Container(
-          margin: EdgeInsets.all(20),
-          child: GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (_) => Depth(
-                        index: index,
-                        title: title,
-                        desc: desc,
-                      )));
-            },
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => Depth(
+              index: index,
+              title: title,
+              desc: desc,
+            ),
+          ),
+        );
+      },
+      child: Stack(
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.all(20),
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -288,22 +291,22 @@ class _DesignState extends State<Design> {
               ),
             ),
           ),
-        ),
-        Hero(
-          tag: 'img$index',
-          transitionOnUserGestures: true,
-          child: Container(
-            margin: EdgeInsets.all(20),
-            height: MediaQuery.of(context).size.height * 0.24,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50),
-              image: DecorationImage(
-                  image: NetworkImage('https://picsum.photos/20$index'),
-                  fit: BoxFit.cover),
+          Hero(
+            tag: 'img$index',
+            transitionOnUserGestures: true,
+            child: Container(
+              margin: EdgeInsets.all(20),
+              height: MediaQuery.of(context).size.height * 0.24,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                image: DecorationImage(
+                    image: NetworkImage('https://picsum.photos/20$index'),
+                    fit: BoxFit.cover),
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

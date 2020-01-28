@@ -60,18 +60,6 @@ class _DepthState extends State<Depth> {
       children: <Widget>[
         Hero(
           tag: 'img$index',
-          flightShuttleBuilder: (_, __, ___, ____, _____) {
-            return Container(
-              margin: EdgeInsets.all(20),
-              height: MediaQuery.of(context).size.height * 0.3,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                image: DecorationImage(
-                    image: NetworkImage('https://picsum.photos/20$index'),
-                    fit: BoxFit.cover),
-              ),
-            );
-          },
           transitionOnUserGestures: true,
           child: Container(
             margin: EdgeInsets.all(20),
